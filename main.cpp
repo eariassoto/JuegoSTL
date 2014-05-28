@@ -3,6 +3,7 @@
 #include <time.h>
 #include "Grafo.h"
 #include "Interfaz.h"
+#include "Salida.h"
 
 using namespace std;
 
@@ -30,14 +31,27 @@ int main()
     ventana.setFramerateLimit(30);
     ventana.setVisible(false);
 
+    ///Instancia de Salida
+    Salida * salida = new Salida();
     /// Instancia de interfaz
     Interfaz * interfaz = new Interfaz(ventana);
 
-    /// Se muestra la ventana inicial y se espera a la decision del usuario
-    int cantCuadros = interfaz->iniciarPantallaInicio();
-
-    /// Instancia del grafo
-    Grafo * grafo = new Grafo(cantCuadros);
+    Grafo * grafo;
+    int cantCuadros;
+    if(salida->hayJuegoGuardado())
+    {
+        cantCuadros = salida->getCantidadCuadros();
+        grafo = new Grafo(cantCuadros, salida->getTurno(), salida->getPosJugador(), salida->getPosMeta());
+        cout << "encontre el juego" << endl;
+        ventana.setVisible(true);
+    }
+    else
+    {
+        /// Se muestra la ventana inicial y se espera a la decision del usuario
+        cantCuadros = interfaz->iniciarPantallaInicio();
+        /// Instancia del grafo
+        grafo = new Grafo(cantCuadros);
+    }
 
     /// Se le manda a interfaz los punteros que necesita e inicia el tablero de juego.
     interfaz->setElementosGrafo(grafo, grafo->meta);
@@ -54,6 +68,7 @@ int main()
             switch(event.type)
             {
             case sf::Event::Closed:
+                salida->guardarJuego(cantCuadros, grafo->jugador->turno, grafo->jugador->posicion, grafo->meta);
                 ventanaCerrada = true;
                 ventana.close();
                 break;
@@ -80,6 +95,7 @@ int main()
 
         if(grafo->finDelJuego())
         {
+            salida->borrarJuego();
             esperar(1);
             interfaz->iniciarPantallaFinal();
         }

@@ -571,10 +571,10 @@
 	"Grafo.h"
 	"Interfaz.h"
 
-1401294211 source:c:\users\b30640\downloads\juego\grafo.cpp
+1401297147 source:c:\users\b30640\downloads\juego\grafo.cpp
 	"Grafo.h"
 
-1401294573 c:\users\b30640\downloads\juego\grafo.h
+1401297188 c:\users\b30640\downloads\juego\grafo.h
 	<iostream>
 	<cmath>
 	<stdlib.h>
@@ -595,10 +595,21 @@
 	<vector>
 	"Grafo.h"
 
-1401293343 source:c:\users\b30640\downloads\juego\main.cpp
+1401297755 source:c:\users\b30640\downloads\juego\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<time.h>
 	"Grafo.h"
 	"Interfaz.h"
+	"Salida.h"
+
+1401297808 source:c:\users\b30640\downloads\juego\salida.cpp
+	"Salida.h"
+
+1401297755 c:\users\b30640\downloads\juego\salida.h
+	<map>
+	<iostream>
+	<fstream>
+	<string>
+	"Grafo.h"
 

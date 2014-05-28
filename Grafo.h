@@ -18,10 +18,7 @@ class Grafo
 {
 public:
 
-    Grafo(int);
-    ~Grafo();
-
-    /** \class Jugador
+/** \class Jugador
      * \brief Representa a los jugadores, contiene un par donde esta su ficha
      *
      * \version 1.0
@@ -31,17 +28,22 @@ public:
     class Jugador
     {
     public:
+        enum Turno {JUGADOR1, JUGADOR2};
         Jugador(pair<int, int>);
-
+        Jugador(Turno, pair<int, int>);
         bool gano;
         bool empate;
-        enum Turno {JUGADOR1, JUGADOR2};
+
         Turno turno;
         pair<int, int> posicion;
 
         int getPosicion(char);
         void cambiarTurno();
     };
+
+    Grafo(int);
+    Grafo(int, Grafo::Jugador::Turno, pair<int, int>, pair<int, int>);
+    ~Grafo();
 
     Jugador * jugador;
     pair<int, int> meta;

@@ -8,6 +8,21 @@ Grafo::Grafo(int n)
     meta = asociarFicha(false, mitad, n);
 }
 
+Grafo::Grafo(int n, Grafo::Jugador::Turno t, pair<int, int> j, pair<int, int> m){
+    this->asociarMatriz(n);
+    int mitad = floor((n-1)/2);
+    jugador = new Jugador(t, j);
+    meta = m;
+}
+
+Grafo::Jugador::Jugador(Grafo::Jugador::Turno t, pair<int, int> n)
+{
+    this->posicion = n;
+    this->turno = t;
+    this->gano = false;
+    this->empate = false;
+}
+
 Grafo::Jugador::Jugador(pair<int, int> n)
 {
     this->posicion = n;
@@ -21,6 +36,14 @@ Grafo::~Grafo()
     delete jugador;
 }
 
+/** \brief Asocia una ficha con un pair, lo que hace es asignar al azar un lugar para el inicio y la meta
+ *
+ * \param esJugador bool especifica si es la ficha de inicio o la de fin
+ * \param min int rango minimo
+ * \param max int rango maximo
+ * \return pair<int, int> pair correspondiente al nodo del tablero
+ *
+ */
 pair<int, int> Grafo::asociarFicha(bool esJugador, int min, int max)
 {
     int r;
@@ -38,7 +61,7 @@ pair<int, int> Grafo::asociarFicha(bool esJugador, int min, int max)
 }
 
 
-/** \brief Devuelve uno de los ejes del nodo correspondiente a la posicion actual del usuio
+/** \brief Devuelve uno de los ejes del nodo correspondiente a la posicion actual del usuario
 *
 * \param eje char identificador del eje a devolver
 * \return int entero correspondiente a la posicion actual de jugador
@@ -61,12 +84,11 @@ void Grafo::Jugador::cambiarTurno()
     turno = (turno==JUGADOR1)?JUGADOR2:JUGADOR1;
 }
 
-
-/** \brief Busca en el arbol un nodo
+/** \brief Busca en el map un nodo
 *
 * \param coordX int coordenada x a buscar
 * \param coordY int coordenada y a buscar
-* \return Grafo::Nodo* si se encontro retorna el puntero al nodo, de lo contrario 0
+* \return map<pair<int, int>, vector<pair<int, int> > >::iterator iterador que contiene el nodo
 */
 map<pair<int, int>, vector<pair<int, int> > >::iterator Grafo::buscarNodo(int coordX, int coordY)
 {
@@ -91,13 +113,15 @@ map<pair<int, int>, vector<pair<int, int> > >::iterator Grafo::buscarNodo(int co
     return it;
 }
 
-/** \brief Busca en el subarbol de nodo una arista
-*
-* \param coordX int coordenada x a buscar
-* \param coordY int coordenada y a buscar
-*
-* \return Grafo::Nodo::Arista* si se encontro retorna el puntero a la arista, de lo contrario 0
-*/
+
+/** \brief Busca en el vector del nodo una arista
+ *
+ * \param nodoIt map<pair<int, int>, vector<pair<int, int> > >::iterator iterador del nodo
+ * \param coordX int coord x de la arista
+ * \param coordY int coord y de la arista
+ * \return bool true si lo encontro
+ *
+ */
 bool Grafo::buscarArista(map<pair<int, int>, vector<pair<int, int> > >::iterator nodoIt, int coordX, int coordY)
 {
     vector<pair<int, int> > v = nodoIt->second;
@@ -116,7 +140,7 @@ bool Grafo::buscarArista(map<pair<int, int>, vector<pair<int, int> > >::iterator
     return encontrado;
 }
 
-/** \brief Crea el tablero mediante el arbol de nodos con su respectivo subarbol de la lista de adyacencias
+/** \brief Crea el tablero mediante las clases estandar
 *
 * \param n int tama;o del tablero
 *
@@ -152,7 +176,7 @@ void Grafo::asociarMatriz(int n)
     }
 }
 
-/** \brief Mueve el puntero de la ficha del jugador. Valida si hay un gane o empate y si no cambia de turno
+/** \brief Campia el pair de la ficha del jugador. Valida si hay un gane o empate y si no cambia de turno
 *
 * \param coord int* puntero con la posicion a mover la ficha
 *
@@ -186,6 +210,11 @@ bool Grafo::finDelJuego()
     return jugador->gano || jugador->empate;
 }
 
+/** \brief Itera para imprimir el grafo
+ *
+ * \return void
+ *
+ */
 void Grafo::imprimir()
 {
     map<pair<int, int>, vector<pair<int, int> > >::iterator it = r.begin();
