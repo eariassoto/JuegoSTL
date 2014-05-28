@@ -35,23 +35,31 @@ int main()
     Salida * salida = new Salida();
     /// Instancia de interfaz
     Interfaz * interfaz = new Interfaz(ventana);
-
     Grafo * grafo;
     int cantCuadros;
     if(salida->hayJuegoGuardado())
     {
-        cantCuadros = salida->getCantidadCuadros();
-        grafo = new Grafo(cantCuadros, salida->getTurno(), salida->getPosJugador(), salida->getPosMeta());
-        cout << "encontre el juego" << endl;
-        ventana.setVisible(true);
+        if(interfaz->iniciarPantallaSesion())
+        {
+            cantCuadros = salida->getCantidadCuadros();
+            grafo = new Grafo(cantCuadros, salida->getTurno(), salida->getPosJugador(), salida->getPosMeta());
+        }
+        else
+        {
+            /// Se muestra la ventana inicial y se espera a la decision del usuario
+            cantCuadros = interfaz->iniciarPantallaInicio();
+            /// Instancia del grafo
+            grafo = new Grafo(cantCuadros);
+        }
     }
-    else
-    {
+    else{
         /// Se muestra la ventana inicial y se espera a la decision del usuario
         cantCuadros = interfaz->iniciarPantallaInicio();
         /// Instancia del grafo
         grafo = new Grafo(cantCuadros);
+
     }
+
 
     /// Se le manda a interfaz los punteros que necesita e inicia el tablero de juego.
     interfaz->setElementosGrafo(grafo, grafo->meta);

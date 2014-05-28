@@ -3,7 +3,6 @@ Salida::Salida()
 {
 }
 
-
 /** \brief Guarda la informacion necesaria del juego
  *
  * \param tam int tamano del tablero

@@ -50,6 +50,8 @@
 		<Unit filename="Grafo.h" />
 		<Unit filename="Interfaz.cpp" />
 		<Unit filename="Interfaz.h" />
+		<Unit filename="Salida.cpp" />
+		<Unit filename="Salida.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

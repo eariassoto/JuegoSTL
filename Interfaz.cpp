@@ -1,5 +1,4 @@
 #include "Interfaz.h"
-
 #define MIN 5
 #define MAX 20
 
@@ -394,6 +393,52 @@ int Interfaz::iniciarPantallaInicio()
     return this->cantCuadros;
 }
 
+/** \brief Inicia dibujando en la ventana la pantalla inicial. Le pide al usuario la cantidad de cuadros que quiere en su tablero
+ *
+ * \return int Cantidad de cuadros solicitados por el usuario
+ *
+ */
+bool Interfaz::iniciarPantallaSesion()
+{
+    bool decision = false, continuar = false;
+    ventana.setVisible(true);
+    this->dibujarPantallaSesion(continuar);
+    while (!decision)
+    {
+        sf::Event event;
+        while (ventana.pollEvent(event))
+        {
+            switch(event.type)
+            {
+            case sf::Event::Closed:
+                ventana.close();
+                decision = true;
+                break;
+            case sf::Event::Resized:
+                ventana.setSize(sf::Vector2u(600, 600));
+                break;
+            case sf::Event::KeyPressed:
+                if(event.key.code == sf::Keyboard::Return)
+                {
+                    decision = true;
+                }
+                else if(event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down)
+                {
+                    continuar = !continuar;
+                }
+
+                break;
+            default:
+                break;
+            }
+            this->dibujarPantallaSesion(continuar);
+
+            ventana.display();
+        }
+    }
+    return this->cantCuadros;
+}
+
 /** \brief Hace los calculos de tama;os entre otros y crea el arbol que contiene los cuadros del tablero.
  *
  */
@@ -498,10 +543,52 @@ void Interfaz::dibujarPantallaInicio()
     ventana.draw(textoInicio);
 }
 
+/** \brief Dibuja en la ventana los componentes referentes a la pantalla de inicio.
+ *
+ */
+void Interfaz::dibujarPantallaSesion(bool)
+{
+    ventana.clear(sf::Color(0,148,255));
+    sf::Text titulo;
+    sf::Text instrucciones;
+    sf::Text cantCuadros;
+    sf::Text textoInicio;
+
+    titulo.setFont(fuente);
+    instrucciones.setFont(fuente);
+    cantCuadros.setFont(fuente);
+    textoInicio.setFont(fuente);
+
+    titulo.setColor(sf::Color::Black);
+    instrucciones.setColor(sf::Color::Black);
+    cantCuadros.setColor(sf::Color::Black);
+    textoInicio.setColor(sf::Color::Black);
+
+    titulo.setString("META");
+    instrucciones.setString("Seleccigxjhona con las flechas la\ncantidad  de cuadros para el\n                        tablero");
+    cantCuadros.setString(itos(44));
+    textoInicio.setString("Presiona Enter para iniciar");
+
+    titulo.setCharacterSize(floor(ventana.getSize().x * 0.3));
+    instrucciones.setCharacterSize(floor(ventana.getSize().x * 0.05));
+    cantCuadros.setCharacterSize(floor(ventana.getSize().x * 0.35));
+    textoInicio.setCharacterSize(floor(ventana.getSize().x * 0.05));
+
+    titulo.setPosition(0,0);
+    instrucciones.setPosition(0,(ventana.getSize().x * 0.375));
+    cantCuadros.setPosition(floor(floor(ventana.getSize().x - cantCuadros.getGlobalBounds().width) / 2), (ventana.getSize().x * 0.475));
+    textoInicio.setPosition(floor(floor(ventana.getSize().x - textoInicio.getGlobalBounds().width) / 2), (ventana.getSize().x * 0.875));
+
+    ventana.draw(titulo);
+    ventana.draw(instrucciones);
+    ventana.draw(cantCuadros);
+    ventana.draw(textoInicio);
+}
+
 /** \brief Dibuja en la ventana los componentes referentes a la pantalla del tablero.
  *
  */
- void Interfaz::dibujarPantallaTablero()
+void Interfaz::dibujarPantallaTablero()
 {
     ventana.clear(sf::Color::White);
     raiz->dibujarCuadros(this->ventana);
@@ -511,7 +598,7 @@ void Interfaz::dibujarPantallaInicio()
 /** \brief Dibuja en la ventana los componentes referentes a la pantalla final.
  *
  */
- void Interfaz::dibujarPantallaFinal()
+void Interfaz::dibujarPantallaFinal()
 {
     ventana.clear(sf::Color(0,148,255));
     sf::Text mensajeGanador;

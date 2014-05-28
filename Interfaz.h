@@ -54,8 +54,10 @@ public:
 
     int    iniciarPantallaInicio();
     void   iniciarPantallaFinal();
+    bool   iniciarPantallaSesion();
     void   iniciarPantallaTablero();
     void   dibujarPantallaTablero();
+    void   dibujarPantallaSesion(bool);
     void   setElementosGrafo(Grafo *, pair<int, int>);
     void   setPosicionMouse(int, int);
     bool   puedeMover(int, int);
