@@ -1,4 +1,11 @@
-#ifndef _SALIDA_H_
+/** \class Salida
+ * \brief Se encarga de manejar los juegos guardados
+
+ * \version 1.0
+ * \author Emmanuel Arias
+ *
+ */
+ #ifndef _SALIDA_H_
 #define _SALIDA_H_
 #include <map>
 #include <iostream>

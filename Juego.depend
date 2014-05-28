@@ -585,7 +585,7 @@
 1401294471 source:c:\users\b30640\downloads\juego\interfaz.cpp
 	"Interfaz.h"
 
-1401293200 c:\users\b30640\downloads\juego\interfaz.h
+1401298000 c:\users\b30640\downloads\juego\interfaz.h
 	<SFML/Graphics.hpp>
 	<cmath>
 	<string>
@@ -603,10 +603,10 @@
 	"Interfaz.h"
 	"Salida.h"
 
-1401297808 source:c:\users\b30640\downloads\juego\salida.cpp
+1401298000 source:c:\users\b30640\downloads\juego\salida.cpp
 	"Salida.h"
 
-1401297755 c:\users\b30640\downloads\juego\salida.h
+1401298000 c:\users\b30640\downloads\juego\salida.h
 	<map>
 	<iostream>
 	<fstream>

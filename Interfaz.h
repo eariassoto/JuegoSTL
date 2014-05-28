@@ -1,8 +1,8 @@
 /** \class Interfaz
  * \brief Muestra al usuario las ventanas para que pueda jugar.
 
- * \version 0.1
- * \author Emmanuel Arias, Geovanny Zu;iga
+ * \version 1.0
+ * \author Emmanuel Arias
  *
  */
 #ifndef INTERFAZ_H_

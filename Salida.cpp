@@ -2,6 +2,17 @@
 Salida::Salida()
 {
 }
+
+
+/** \brief Guarda la informacion necesaria del juego
+ *
+ * \param tam int tamano del tablero
+ * \param turno Grafo::Jugador::Turno el ultimo turno del jugador
+ * \param posJ pair<int, int> par con la posicion del jugador
+ * \param posM pair<int, int> par con la posicion de meta
+ * \return void
+ *
+ */
 void Salida::guardarJuego(int tam, Grafo::Jugador::Turno turno, pair<int, int> posJ, pair<int, int> posM)
 {
     ofstream output;
@@ -15,6 +26,11 @@ void Salida::guardarJuego(int tam, Grafo::Jugador::Turno turno, pair<int, int> p
     output.close();
 }
 
+/** \brief Consulta si si hay un juego guardado previamente
+ *
+ * \return bool True si lo encuentra
+ *
+ */
 bool Salida::hayJuegoGuardado()
 {
     ifstream input;
@@ -24,6 +40,12 @@ bool Salida::hayJuegoGuardado()
     return b;
 }
 
+/** \brief Lee una linea de un archivo
+ *
+ * \param n int linea l que se quiere leer
+ * \return int contenido de la linea
+ *
+ */
 int Salida::leerLinea(int n)
 {
     string hilera;
@@ -36,7 +58,6 @@ int Salida::leerLinea(int n)
         }
         input.close();
     }
-
     return atoi(hilera.c_str());
 }
 
@@ -66,6 +87,12 @@ pair<int, int> Salida::getPosMeta()
     return pos;
 }
 
-void Salida::borrarJuego(){
+/** \brief Borra el juego anterior, si lo hay.
+ *
+ * \return void
+ *
+ */
+void Salida::borrarJuego()
+{
     remove( "juego.wtf" );
 }
